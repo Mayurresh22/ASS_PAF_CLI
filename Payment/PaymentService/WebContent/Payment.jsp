@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>ElectroGrid (Payment Managment)</title>
+<title>ElectroGrid (PM)</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="Views/bootstrap.min.css"> 
 <script src="components/jquery-3.2.1.min.js"></script>
@@ -28,23 +28,22 @@
 					<input id="TransactionID" name="TransactionID" type="text"  readonly>   <br>
 					
 					<br> 
-					Paymentmethod:   <br>
-					<input id="Paymentmethod" name="Paymentmethod" type="text" >   <br>
+					 Paymentmethod:   <br>
+					<input id="Dist" name="Dist" type="text" >   <br>
 					
 					<br> 
-					Amount:  <br> 
-					<input id="Amount:" name="Amount:" type="text" >   <br>
+					 Amount:  <br> 
+					<input id="DistID" name="DistID" type="text" > <br>
 					
 					<br>
-					Bill_No:  <br>
-					 <input id="BillNo" name="BillNo" type="text" >  <br>
+					 Bill_No:  <br>
+					 <input id="billno" name="billno" type="text" >  <br>					 
+					<br>  
 					 
 					 <br>
-					Bank_ID:  <br>
-					 <input id="BankID" name="BankID" type="text" >  <br>
-					 
-					 
-					 <br>  
+					 Bank_ID:  <br>
+					 <input id="bankid" name="bankid" type="text" >  <br>					 
+					<br>  F				 
 					 <input id="btnSave" name="btnSave" type="button" value="Save" class="btn btn-primary">  
 					 <input type="hidden" id="hidPaymentIDSave" name="hidPaymentIDSave" value=""> 
 					 
@@ -54,7 +53,7 @@
 				<div  id="divItemsGrid" style="margin:10px 300px 40px 100px">   
 					<%    
 						Payment appObj = new Payment();
-						out.print(appObj.readPayment());   
+						out.print(appObj.readPayments());   
 					%>  
 					
 				</div> 

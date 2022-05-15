@@ -11,13 +11,12 @@ $(document).ready(function()
 $(document).on("click", "#btnSave", function(event) 
 {  
 	// Clear alerts---------------------  
-	$("#alertSuccess").text("");  
 	$("#alertSuccess").hide();  
 	$("#alertError").text("");  
 	$("#alertError").hide(); 
 
 	// Form validation-------------------  
-	var status = validateUnitForm();  
+	var status = validatePaymentForm();  
 	if (status != true)  
 	{   
 		$("#alertError").text(status);   
@@ -26,22 +25,22 @@ $(document).on("click", "#btnSave", function(event)
 	} 
 
 	// If valid------------------------  
-	var t = ($("#hidUnitIDSave").val() == "") ? "POST" : "PUT";
+	var t = ($("#hidPaymentIDSave").val() == "") ? "POST" : "PUT";
 	
 	$.ajax(
 	{
-		url : "UnitAPI",
+		url : "PaymentAPI",
 		type : t,
-		data : $("#formUnit").serialize(),
+		data : $("#formPayment").serialize(),
 		dataType : "text",
 		complete : function(response, status)
 		{
-			onUnitSaveComplete(response.responseText, status);
+			onPaymentSaveComplete(response.responseText, status);
 		}
 	});
 }); 
 
-function onUnitSaveComplete(response, status){
+function onPaymentSaveComplete(response, status){
 	if(status == "success")
 	{
 		var resultSet = JSON.parse(response);
@@ -71,11 +70,11 @@ function onUnitSaveComplete(response, status){
 //UPDATE========================================== 
 $(document).on("click", ".btnUpdate", function(event) 
 		{     
-	$("#hidUnitIDSave").val($(this).closest("tr").find('#hidUnitIDUpdate').val()); 
-	$("#UnitID").val($(this).closest("tr").find('td:eq(0)').text());     
-	$("#Dist").val($(this).closest("tr").find('td:eq(1)').text());    
-	$("#DistID").val($(this).closest("tr").find('td:eq(2)').text());     
-	$("#UnitP").val($(this).closest("tr").find('td:eq(3)').text());     
+	$("#hidPaymentIDSave").val($(this).closest("tr").find('#hidPaymentIDUpdate').val()); 
+	$("#TransactionID").val($(this).closest("tr").find('td:eq(0)').text());     
+	$("#Paymentmethod").val($(this).closest("tr").find('td:eq(1)').text());    
+	$("#Amount").val($(this).closest("tr").find('td:eq(2)').text());     
+	$("#Bill_No").val($(this).closest("tr").find('td:eq(3)').text());     
 
 });
 
@@ -84,18 +83,18 @@ $(document).on("click", ".btnUpdate", function(event)
 $(document).on("click", ".btnRemove", function(event){
 	$.ajax(
 	{
-		url : "UnitAPI",
+		url : "PaymentAPI",
 		type : "DELETE",
-		data : "unitID=" + $(this).data("UnitID"),
+		data : "PaymentID=" + $(this).data("PaymentID"),
 		dataType : "text",
 		complete : function(response, status)
 		{
-			onUnitDeletedComplete(response.responseText, status);
+			onPaymentDeletedComplete(response.responseText, status);
 		}
 	});
 });
 
-function onUnitDeletedComplete(response, status)
+function onPaymentDeletedComplete(response, status)
 {
 	if(status == "success")
 	{
@@ -122,24 +121,41 @@ function onUnitDeletedComplete(response, status)
 }
 
 //CLIENTMODEL
-function validateUnitForm() {  
-	// District 
-	if ($("#Dist").val().trim() == "")  {   
-		return "Insert District";  
+function validatePaymentForm() {  
+	// PaymentID
+	if ($("#TransactionID").val().trim() == "")  {   
+		return "PaymentID";  
 		
 	} 
 	
-	 // DistrictID  
-	if ($("#DistID").val().trim() == "")  {   
-		return "Insert District ID";  
+	 // TransactionID 
+	if ($("#TransactionID").val().trim() == "")  {   
+		return "Insert TransactionID ";  
 		
 	} 
 
-	 // Unit Price
-	if ($("#UnitP").val().trim() == "")  {   
-		return "Insert unit Price";  
+	 // Amount
+	if ($("#Amount").val().trim() == "")  {   
+		return "Insert Payment Price";  
 		
 	} 
+	
+		} 
+
+	 // Bill_No
+	if ($("#Bill_No").val().trim() == "")  {   
+		return "Insert Bill_No";  
+		
+	} 
+		} 
+
+	 // Bank_ID
+	if ($("#Amount").val().trim() == "")  {   
+		return "Insert Amount";  
+		
+	} 
+	
+
 		 
 	 return true; 
 	 

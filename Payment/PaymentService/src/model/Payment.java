@@ -27,7 +27,7 @@ public class Payment {
   
   
 	//POST part
-  public String insertPayment(String TransactionID, String Paymentmethod, String Amount, String Bill_No,  String  Bank_id )
+  public String insertPayment(String TransactionID, String Paymentmethod, String  Amount, String BillNo, int bank_id)
   {
      String output = "";
     try
@@ -40,7 +40,7 @@ public class Payment {
     }
   
       // create a prepared statement
-      String query = " INSERT INTO Payments(TransactionID,Paymentmethod,distID,Paymentp)"+ " values (?,?,?,?)";
+      String query = " INSERT INTO Payments(PaymentID,dist,distID,Paymentp)"+ " values (?,?,?,?)";
       PreparedStatement preparedStmt = con.prepareStatement(query);
          
         // binding values
@@ -48,7 +48,9 @@ public class Payment {
       preparedStmt.setString(2, Paymentmethod);
       preparedStmt.setString(3, Amount);
       preparedStmt.setString(4, Bill_No);
-      preparedStmt.setString(4, Bank_ID);
+      preparedStmt.setString(5, Bank_id);
+	  preparedStmt.setInt(6, Integer.parseInt(Payment_ID));
+
       
       preparedStmt.execute();
       con.close();
@@ -81,7 +83,7 @@ public class Payment {
         // Prepare the html table to be displayed
         output = "<table align='center' border ='3px' style='border-radius:10px;'><tr align='center'>"
         		+ "<th> TransactionID </th><th> Paymentmethod </th>"
-        		+ "<th>Amount NO</th><th> Payment Bill No </th>  <th> Payment Bank ID </th>  "
+        		+ "<th>Amount NO</th><th>  Bill_No</th> "
         		+"<th> Update </th><th> Delete </th>";
         
         String query = "SELECT * FROM Payments  ";
@@ -95,20 +97,19 @@ public class Payment {
         String TransactionID = Integer.toString(rs.getInt("TransactionID"));
         String Paymentmethod = rs.getString("Paymentmethod");
         String Amount = Integer.toString(rs.getInt("Amount"));
-        String BillNo = rs.getString("Bill_NO");
-        String BankID = rs.getString("Bank_ID");
-  
+        String Bill_No = rs.getString("Bill_No");
+        String Bankid = rs.getString("Bankid");
+        
        
         // Add into the html table
         output += "<tr align='center'><td>" + TransactionID + "</td>";
-        output += "<td>" + Paymentmethod + "</td>";
+        output += "<td>" + Paymentmethod+ "</td>";
         output += "<td>" + Amount + "</td>";
-        output += "<td>" +"Rs."+ Bill_No + "</td>";
-        output += "<td>" +"Rs."+  + "</td>";
+        output += "<td>" +"Rs."+ Paymentp + "</td>";
         
      // buttons     
 		output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
-		+ "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-appID='"+ TransactionID +"'>"+"</td></tr>";
+		+ "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-appID='"+ PaymentID +"'>"+"</td></tr>";
        
       }
         con.close();
@@ -126,7 +127,7 @@ public class Payment {
   
   
 	//PUT part
-  public String updatePayment(String TransactionID, String Paymentmethod,String DistID,String PaymentP)
+  public String updatePayment(String PaymentID, String Dist,String DistID,String PaymentP)
   {
     String output = "";
       try
@@ -138,15 +139,14 @@ public class Payment {
       }
         
         // create a prepared statement
-          String query = "UPDATE Payments SET TransactionID=?,PaymentmethodID=?,Amount=? WHERE Bill_No=?, Bank_ID";
+          String query = "UPDATE Payments SET dist=?,distID=?,Paymentp=? WHERE PaymentID=?";
           PreparedStatement preparedStmt = con.prepareStatement(query);
         
         // binding values
         preparedStmt.setString(1, TransactionID);
-        preparedStmt.setInt(2, Integer.parseInt(PaymentmethodID));
+        preparedStmt.setInt(2, Integer.parseInt(Paymentmethod));
         preparedStmt.setString(3, Amount);
-        preparedStmt.setInt(4, Integer.parseInt(Bill_No));
-        preparedStmt.setInt(4, Integer.parseInt(Bank_ID));
+        preparedStmt.setInt(4, Integer.parseInt(PaymentID));
         
         preparedStmt.execute();
         con.close();
@@ -167,7 +167,7 @@ public class Payment {
   
   
 //DELETE part 
-  public String deletePayment(String TransactionID)
+  public String deletePayment(String PaymentID)
   {
     String output = "";
       try
@@ -180,11 +180,11 @@ public class Payment {
       }
           
       // create a prepared statement
-          String query = "DELETE FROM Payments WHERE TransactionID=?";
+          String query = "DELETE FROM Payments WHERE PaymentID=?";
           PreparedStatement preparedStmt = con.prepareStatement(query);
       
       // binding values
-          preparedStmt.setInt(1, Integer.parseInt(TransactionID));
+          preparedStmt.setInt(1, Integer.parseInt(PaymentID));
       
       // execute the statement
           preparedStmt.execute();

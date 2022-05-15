@@ -28,18 +28,18 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `Billing` (
-  `AccNo` int(11) NOT NULL,
-  `CustomerName` varchar(11) NOT NULL,
-  `BillAmount` varchar(11) NOT NULL,
-  `Date` varchar(11) NOT NULL,
-  `Email` varchar(11) NOT NULL
+  `TransactionID` int(11) NOT NULL,
+  `Paymentmethod` varchar(11) NOT NULL,
+  `Amount` varchar(11) NOT NULL,
+  `Bill_No` varchar(11) NOT NULL,
+  `Book_ID` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `Billing`
 --
 
-INSERT INTO `Billing` (`AccNo`, `CustomerName`, `BillAmount`, `Date`, `Email`) VALUES
+INSERT INTO `Billing` (`TransactionID)`, `Paymentmethod`, `Amount`, `Bill_NO`, `Bank_ID`) VALUES
 (7, 'admin', 'admin', '2002', '120@gmail');
 
 -- --------------------------------------------------------
@@ -48,11 +48,13 @@ INSERT INTO `Billing` (`AccNo`, `CustomerName`, `BillAmount`, `Date`, `Email`) V
 -- Table structure for table `bills`
 --
 
-CREATE TABLE `bills` (
-  `billID` int(11) NOT NULL,
-  `userID` varchar(10) NOT NULL,
-  `date` varchar(10) NOT NULL,
-  `reading` double NOT NULL
+CREATE TABLE `Payment` (
+  `TransactionID` int(11) NOT NULL,
+  `Paymentmethod` varchar(10) NOT NULL,
+  `Amount` varchar(10) NOT NULL,
+  `Bill_NO` double NOT NULL
+  `Bank_ID` double NOT NULL
+  
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
